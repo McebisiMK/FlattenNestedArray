@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using FlattenNestedArray.Library.Exceptions;
@@ -8,19 +9,19 @@ namespace FlattenNestedArray.Library
 {
     public class NestedArray : INestedArray
     {
+        private List<int> flattenArray;
         private readonly IObjectConverter _objectConverter;
 
         public NestedArray(IObjectConverter objectConverter)
         {
             _objectConverter = objectConverter;
+            flattenArray = new List<int>();
         }
 
         public List<int> GetFlattenArray(IEnumerable<object> nestedArray)
         {
-            if (nestedArray.Any())
-            {
+            if (!nestedArray.Any())
                 throw new EmptyArrayException();
-            }
 
             var flattenArray = CreateFlattenArray(nestedArray);
 
@@ -29,16 +30,18 @@ namespace FlattenNestedArray.Library
 
         private List<int> CreateFlattenArray(IEnumerable<object> nestedArray)
         {
-            var flattenArray = new List<int>();
             foreach (var arrayValue in nestedArray)
             {
                 if (arrayValue.GetType().IsArray)
                 {
-                    var innerArray = arrayValue as object[];
+                    var innerArray = ((IEnumerable)arrayValue).Cast<object>().Select(x => x as object).ToArray();
                     CreateFlattenArray(innerArray);
                 }
-                var value = _objectConverter.ConvertObject(arrayValue);
-                flattenArray.Add(value);
+                else
+                {
+                    var value = _objectConverter.ConvertObject(arrayValue);
+                    flattenArray.Add(value);
+                }
             }
 
             return flattenArray;
