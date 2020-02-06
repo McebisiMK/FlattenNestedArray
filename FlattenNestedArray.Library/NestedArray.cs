@@ -18,14 +18,14 @@ namespace FlattenNestedArray.Library
             flattenArray = new List<int>();
         }
 
-        public List<int> GetFlattenArray(IEnumerable<object> nestedArray)
+        public int[] GetFlattenArray(IEnumerable<object> nestedArray)
         {
             if (!nestedArray.Any())
                 throw new EmptyArrayException();
 
             var flattenArray = CreateFlattenArray(nestedArray);
 
-            return flattenArray;
+            return flattenArray.ToArray();
         }
 
         private List<int> CreateFlattenArray(IEnumerable<object> nestedArray)
