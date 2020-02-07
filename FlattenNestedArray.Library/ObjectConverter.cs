@@ -15,7 +15,7 @@ namespace FlattenNestedArray.Library
             {
                 number = Convert.ToInt32(arrayValue);
             }
-            catch (InvalidInputException)
+            catch (FormatException)
             {
                 throw new InvalidInputException(arrayValue);
             }
