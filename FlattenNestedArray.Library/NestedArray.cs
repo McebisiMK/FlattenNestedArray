@@ -34,7 +34,7 @@ namespace FlattenNestedArray.Library
             {
                 if (arrayValue.GetType().IsArray)
                 {
-                    var innerArray = ((IEnumerable)arrayValue).Cast<object>().Select(x => x as object).ToArray();
+                    var innerArray = GetNestedArray(arrayValue);
                     CreateFlattenArray(innerArray);
                 }
                 else
@@ -45,6 +45,14 @@ namespace FlattenNestedArray.Library
             }
 
             return flattenArray;
+        }
+
+        private object[] GetNestedArray(object arrayValue)
+        {
+            return ((IEnumerable)arrayValue)
+                        .Cast<object>()
+                        .Select(x => x as object)
+                        .ToArray();
         }
     }
 }
