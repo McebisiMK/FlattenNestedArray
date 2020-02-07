@@ -14,7 +14,18 @@ namespace FlattenNestedArray.App
             var nestedArrayInput = new object[] { 1, 2, 3, 4, 5, new object[] { 6, 7, new object[] { 8, 9, new object[] { 10, 11, 12 }, 13, 14, 15, }, 16, 17 }, 18, 19, 20 };
             var container = GetContainer();
             var nestedArray = container.Resolve<INestedArray>();
-            var flattenArray = nestedArray.GetFlattenArray(nestedArrayInput);
+            var flattenArray = new int[] { };
+
+            try
+            {
+                flattenArray = nestedArray.GetFlattenArray(nestedArrayInput);
+                Display(flattenArray);
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception.Message);
+            }
+            Console.ReadKey();
         }
 
         private static IContainer GetContainer()
@@ -23,6 +34,11 @@ namespace FlattenNestedArray.App
             containerBuilder.RegisterModule<Modules>();
 
             return containerBuilder.Build();
+        }
+
+        private static void Display(int[] flattenArray)
+        {
+            Console.WriteLine($"[{string.Join(',', flattenArray)}]");
         }
     }
 }
