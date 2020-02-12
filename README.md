@@ -1,7 +1,5 @@
 # FlattenNestedArray
 
-An algorithm to flatten an arbitrarily nested array of integers.
-
 ## Flatten an arbitrarily nested array:
 
 **Important information:**
@@ -11,7 +9,7 @@ An algorithm to flatten an arbitrarily nested array of integers.
   - Integer value or
   - Other array which can containing integers and nested arrays as well.
 
-- Loop through all the arrays to get integers and create a 1D arrays (flatten array).
+- Loop through all the arrays to get integers and create a 1D array (flatten array).
   - If a value at position is not convertible to integer, return an error message with the value.
   - If an array is empty, return an error message.
   - If array (nested or not) is valid, return a flatten version of the array.
