@@ -9,13 +9,13 @@ namespace FlattenNestedArray.Library
 {
     public class NestedArray : INestedArray
     {
-        private List<int> flattenArray;
+        private List<int> _flattenArray;
         private readonly IObjectConverter _objectConverter;
 
         public NestedArray(IObjectConverter objectConverter)
         {
             _objectConverter = objectConverter;
-            flattenArray = new List<int>();
+            _flattenArray = new List<int>();
         }
 
         public int[] GetFlattenArray(IEnumerable<object> nestedArray)
@@ -40,19 +40,22 @@ namespace FlattenNestedArray.Library
                 else
                 {
                     var value = _objectConverter.ConvertObject(arrayValue);
-                    flattenArray.Add(value);
+                    _flattenArray.Add(value);
                 }
             }
 
-            return flattenArray;
+            return _flattenArray;
         }
 
         private object[] GetNestedArray(object arrayValue)
         {
-            return ((IEnumerable)arrayValue)
-                        .Cast<object>()
-                        .Select(x => x as object)
-                        .ToArray();
+            return
+                (
+                    ((IEnumerable)arrayValue)
+                    .Cast<object>()
+                    .Select(x => x as object)
+                    .ToArray()
+                );
         }
     }
 }

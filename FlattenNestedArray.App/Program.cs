@@ -38,7 +38,8 @@ namespace FlattenNestedArray.App
 
         private static void Display(int[] flattenArray)
         {
-            Console.WriteLine($"[{string.Join(',', flattenArray)}]");
+            var results = string.Join(',', flattenArray);
+            Console.WriteLine($"[{results}]");
         }
     }
 }
